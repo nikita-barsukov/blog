@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<title>{% if page.title %}{{ page.title }} &mdash; {% endif %}{{ site.title }}</title>
+<meta name="description" content="{{ site.description }}">
+
+<link href='http://fonts.googleapis.com/css?family=Quattrocento' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<style>
+  table{
+    border-collapse:collapse;
+  }
+  th {
+    border-bottom: 1px solid black;
+  }
+
+  path {
+    stroke: grey;
+    stroke-width: 1px;
+    stroke-linejoin: round; 
+  }
+  .year-line{
+    stroke: gray;
+  }
+
+  .legend-block {
+    stroke: black;
+  }
+  .legend-background {
+    fill: rgba(255, 255, 255, 0.9);
+  }
+
+  #tooltip {
+    display: none;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+    border: 2px solid gray;
+  }
+
+  .highlighted {
+    stroke: black!important;
+  }
+
+  .slider{
+    float: right;
+    width: 80%;
+    margin: 10px 10px 0 0;
+  }
+  .play-controls{
+    font-size: 16pt;
+  }
+  .line{
+    fill: none;
+    stroke: black;
+  }
+  .base-line{
+    stroke: red;
+  }
+    
+  .axis line {
+    fill: none;
+    stroke: gray;
+    shape-rendering: crispEdges;
+  }
+  .y.axis path {
+    display: none;
+  }
+
+  #tooltip text {
+    font-size: 8px;
+  }
+
+</style>
+
+{% if page.js %}
+  <script data-main="/js/{{ page.js }}" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.14/require.min.js"></script>
+{% endif %}
+
+</head>
+<body>
+	<div class='container'>
+    {{include sidebar.html}}
+    <div id="post" class="col-md-11">
+    {{content}}
+    </div>
+    <div id="tooltip"></div>
+	</div>
+</body>
