@@ -99,7 +99,7 @@ define(["helpers", "line_chart", "d3", "backbone", "topojson", "jquery", "jquery
                     p = _.find(dataset, function(d){return d["kommune"] == komnavn});
                     tooltip.css("display", "block");
                     tooltip.append(helpers.generate_tooltip_html(p, chart.options.tooltip_format));
-                    tooltip.css("top", (d3.event.pageY)+"px")
+                    tooltip.css("top", (d3.event.pageY - 20)+"px")
                       .css("left",(d3.event.pageX + 10)+"px");
 
                     d3.selectAll("." + komnavn).classed("highlighted", true);
@@ -170,18 +170,18 @@ define(["helpers", "line_chart", "d3", "backbone", "topojson", "jquery", "jquery
                     <div class='controls btn btn-default'><span class='glyphicon glyphicon-play'></span></div> \
                     <div class='slider'></div> \
                 </div>");
-            chart.$el.prepend("<h3 class='year-label'>Average net household income in 2000</h3>");
+            chart.$el.prepend("<h3 class='year-label'>Average net household income in 2000, DKK</h3>");
             chart.sl = chart.$el.find(".slider").slider({
                 orientation: "horizontal",
                 min: 2000,
                 max: 2012,
                 value: 2000,
                 slide: function( event, ui ) {
-                    chart.$el.find(".year-label").text("Average net household income in " + ui.value)                    
+                    chart.$el.find(".year-label").text("Average net household income in " + ui.value + " DKK")                    
                     chart.render_cholopleth(dataset, "y-" + ui.value)
                 },
                 change: function( event, ui ) {
-                    chart.$el.find(".year-label").text("Average net household income in " + ui.value)
+                    chart.$el.find(".year-label").text("Average net household income in " + ui.value + " DKK" )
                     chart.render_cholopleth(dataset, "y-" + ui.value)
                 }
             });

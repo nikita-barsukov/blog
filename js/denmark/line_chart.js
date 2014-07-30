@@ -1,4 +1,4 @@
-define(["d3", "jquery", "backbone"], function(){
+define(["d3", "jquery", "backbone"], function(d3){
     var SparkLineChart = Backbone.View.extend({
         defaults: {
             width: 200,
