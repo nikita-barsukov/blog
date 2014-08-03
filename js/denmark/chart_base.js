@@ -8,7 +8,9 @@ define(["helpers", "line_chart", "d3", "backbone", "topojson", "jquery", "jquery
             domain: [150000,550000],
             legend_format: d3.format(",", Math.ceil),
             tooltip_format: d3.format(",", Math.ceil),
-            x_var: "muni"
+            x_var: "muni",
+            prefix: "y-",
+            template_string: "Average net household income in <%= year %>, DKK"
         },
 
         events: {
@@ -88,7 +90,7 @@ define(["helpers", "line_chart", "d3", "backbone", "topojson", "jquery", "jquery
                             
                             var elem = {};
 
-                            elem["x"] = key.substring(2) 
+                            elem["x"] = key.replace(chart.options['prefix'], "") 
                             elem["y"] = raw_komdata[key]
                             elem["base"] = base_data[key]
 
@@ -106,7 +108,8 @@ define(["helpers", "line_chart", "d3", "backbone", "topojson", "jquery", "jquery
                     d3.selectAll("." + komnavn).moveToFront();
                     
                     var spark = new LineChart({
-                        el: "#tooltip"
+                        el: "#tooltip",
+                        y_domain: chart.options['domain']
                     });
                     spark.render(komdata);
                     spark.render_year_line(chart.sl.slider("option", "value"))
@@ -125,8 +128,8 @@ define(["helpers", "line_chart", "d3", "backbone", "topojson", "jquery", "jquery
         render_legend: function(){
             var chart = this;
             var legend_breaks = helpers.color_scale_function(chart.options.domain, 
-                                                                chart.options.palette, 
-                                                                chart.options.buckets).quantiles(); 
+                                                             chart.options.palette, 
+                                                             chart.options.buckets).quantiles(); 
 
             this.legend = chart.svg.append("g")
                 .attr("class", "legend");
@@ -170,24 +173,26 @@ define(["helpers", "line_chart", "d3", "backbone", "topojson", "jquery", "jquery
                     <div class='controls btn btn-default'><span class='glyphicon glyphicon-play'></span></div> \
                     <div class='slider'></div> \
                 </div>");
-            chart.$el.prepend("<h3 class='year-label'>Average net household income in 2000, DKK</h3>");
+            chart.$el.prepend("<h3 class='year-label'></h3>");
+            chart.$el.find(".year-label").text(_.template(chart.options['template_string'], {year: "2000"}))
             chart.sl = chart.$el.find(".slider").slider({
                 orientation: "horizontal",
                 min: 2000,
                 max: 2012,
                 value: 2000,
                 slide: function( event, ui ) {
-                    chart.$el.find(".year-label").text("Average net household income in " + ui.value + " DKK")                    
-                    chart.render_cholopleth(dataset, "y-" + ui.value)
+                    chart.$el.find(".year-label").text(_.template(chart.options['template_string'], {year: ui.value}))                    
+                    chart.render_cholopleth(dataset, chart.options['prefix'] + ui.value)
                 },
                 change: function( event, ui ) {
-                    chart.$el.find(".year-label").text("Average net household income in " + ui.value + " DKK" )
-                    chart.render_cholopleth(dataset, "y-" + ui.value)
+                    chart.$el.find(".year-label").text(_.template(chart.options['template_string'], {year: ui.value}))
+                    chart.render_cholopleth(dataset, chart.options['prefix'] + ui.value)
                 }
             });
         },
         playback: function(e) {
             var chart = this;
+            console.log(chart.sl.slider('value'))
 
             var year = 2000;
             chart.sl.slider("value", year);

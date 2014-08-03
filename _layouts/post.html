@@ -42,17 +42,18 @@
     border: 2px solid gray;
   }
 
-  .highlighted {
+  path.highlighted {
     stroke: black!important;
   }
 
   .slider{
-    float: right;
-    width: 80%;
-    margin: 10px 10px 0 0;
+    display: inline-block;
+    width: 50%;
+    margin-left: 10px;
   }
   .play-controls{
     font-size: 16pt;
+    float: left;
   }
   .line{
     fill: none;
@@ -62,13 +63,20 @@
     stroke: red;
   }
     
+  .axis path,
   .axis line {
     fill: none;
-    stroke: gray;
+    stroke: #000;
     shape-rendering: crispEdges;
   }
-  .y.axis path {
-    display: none;
+
+  circle {
+    stroke: black;
+    fill: gray;
+  }
+
+  circle.highlighted{
+    fill: purple!important;
   }
 
   #tooltip text {

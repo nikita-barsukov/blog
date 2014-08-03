@@ -25,23 +25,24 @@ define(["d3", "jquery", "backbone"], function(d3){
             this.y_scale = d3.scale.linear()
                 .range([chart.options.height, 0])
                 .domain(chart.options.y_domain);
+
             x_scale = this.x_scale;
             y_scale = this.y_scale;
 
             var line_func = d3.svg.line()
-                .interpolate("basis")
+                .interpolate("linear")
                 .x(function(d) { return x_scale(d["x"])})
                 .y(function(d) { return y_scale(d["y"])});
 
             var base_line_func = d3.svg.line()
-                .interpolate("basis")
+                .interpolate("linear")
                 .x(function(d) { return x_scale(d["x"])})
                 .y(function(d) { return y_scale(d["base"])});
 
             var yAxis = d3.svg.axis()
                   .scale(y_scale)
-                  .orient("left")
-                  .tickValues([200000, 300000, 400000, 500000]);;
+                  .ticks(4)
+                  .orient("left");
 
             this.svg = d3.select(this.el).append("svg")
               .attr("width", this.options['width'] + this.options["margin"].right + this.options["margin"].left)
