@@ -35,60 +35,28 @@ require(["chart_base","scatter_base", "queue", "d3"], function(BaseChart,Scatter
 
     queue()
         .defer(d3.json, "/js/vendor/dk.json")
-        .defer(d3.csv, "/raw_logs/tax_rate.csv")
-        .defer(d3.csv, "/raw_logs/income.csv")        
+        .defer(d3.csv, "/raw_logs/foreigners-by-kommune.csv")
         .await(ready);
 
-    function ready(error, dk_map, tax_data, income_data) {
+    function ready(error, dk_map, foreigners_data) {
 
         var ch = new BaseChart({
-            el: "#taxes",
-            palette: "Oranges",
+            el: "#foreigners",
+            palette: "Greens",
             tooltip: true,
             enhance: false,
-            prefix: "tax-",
-            buckets: 8,
-            domain: [0.25, 0.45],
+            buckets: 6,
+            domain: [0, 0.15],
             tooltip_format: d3.format(".2%"),
             legend_format: d3.format(".2%"),
-            template_string: "Share of household income that goes to taxes in <%= year %>"            
+            template_string: "Share of foreigners by kommune in 2013",
+            sparkline: false           
         });
         ch.render();
         ch.render_map(dk_map);
         ch.render_legend();
 
-        ch.render_cholopleth(tax_data, "tax-2000");  
-        ch.render_slider(tax_data)  
-
-        scatter_dataset = []
-
-        tax_data.forEach(function(d){
-            scatter_dataset.push({muni: d["muni"], 
-                tax_rate: d["tax-2012"], 
-                income: _.findWhere(income_data, {muni: d["muni"]})["2012"]})
-        })
-
-        f = function(num){
-            var func;
-            if(num < 1) {
-                func = d3.format(".2%")
-            } else {
-                func = d3.format("0,000")
-            }
-            return func(num)
-        }
-
-        var sc = new ScatterChart({
-            el: "#scatter",
-            width: 500,
-            height: 500,            
-            x_var: "income",
-            y_var: "tax_rate",
-            tooltip_format: f,
-            r: 7,
-        }); 
-
-        sc.render(scatter_dataset)       
+        ch.render_cholopleth(foreigners_data, "share");  
 
     }
 })

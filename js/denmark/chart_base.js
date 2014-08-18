@@ -2,15 +2,16 @@ define(["helpers", "line_chart", "d3", "backbone", "topojson", "jquery", "jquery
 
     var BaseChart = Backbone.View.extend({
         defaults: {
-            width: 960,
-            height: 650,
+            width: 900,
+            height: 600,
             buckets: 8,
             domain: [150000,550000],
             legend_format: d3.format(",", Math.ceil),
             tooltip_format: d3.format(",", Math.ceil),
             x_var: "muni",
             prefix: "y-",
-            template_string: "Average net household income in <%= year %>, DKK"
+            template_string: "Average net household income in <%= year %>, DKK",
+            sparkline: true
         },
 
         events: {
@@ -83,20 +84,6 @@ define(["helpers", "line_chart", "d3", "backbone", "topojson", "jquery", "jquery
                     var komnavn = this.classList[0];
                     var raw_komdata = _.findWhere(data, {muni: komnavn});
                     var base_data = _.findWhere(data, {muni: "Danmark"});
-                    var komdata = []                    
-
-                    for (var key in raw_komdata) {
-                        if (raw_komdata.hasOwnProperty(key) && key !== chart.options.x_var) {
-                            
-                            var elem = {};
-
-                            elem["x"] = key.replace(chart.options['prefix'], "") 
-                            elem["y"] = raw_komdata[key]
-                            elem["base"] = base_data[key]
-
-                            komdata.push(elem)
-                        }
-                    }
 
                     p = _.find(dataset, function(d){return d["kommune"] == komnavn});
                     tooltip.css("display", "block");
@@ -106,13 +93,31 @@ define(["helpers", "line_chart", "d3", "backbone", "topojson", "jquery", "jquery
 
                     d3.selectAll("." + komnavn).classed("highlighted", true);
                     d3.selectAll("." + komnavn).moveToFront();
-                    
-                    var spark = new LineChart({
-                        el: "#tooltip",
-                        y_domain: chart.options['domain']
-                    });
-                    spark.render(komdata);
-                    spark.render_year_line(chart.sl.slider("option", "value"))
+
+                    if(chart.options.sparkline){
+                        var komdata = []                    
+
+                        for (var key in raw_komdata) {
+                            if (raw_komdata.hasOwnProperty(key) && key !== chart.options.x_var) {
+                                
+                                var elem = {};
+
+                                elem["x"] = key.replace(chart.options['prefix'], "") 
+                                elem["y"] = raw_komdata[key]
+                                elem["base"] = base_data[key]
+                                console.log(elem)
+
+                                komdata.push(elem)
+                            }
+                        }                    
+                        
+                        var spark = new LineChart({
+                            el: "#tooltip",
+                            y_domain: chart.options['domain']
+                        });
+                        spark.render(komdata);
+                        spark.render_year_line(chart.sl.slider("option", "value"))
+                    }
 
                 }).on("mousemove", function(d){
                      tooltip.css("top", (d3.event.pageY)+"px")
@@ -192,7 +197,6 @@ define(["helpers", "line_chart", "d3", "backbone", "topojson", "jquery", "jquery
         },
         playback: function(e) {
             var chart = this;
-            console.log(chart.sl.slider('value'))
 
             var year = 2000;
             chart.sl.slider("value", year);
