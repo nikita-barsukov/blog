@@ -8,5 +8,13 @@ tags: ["denmark", "foreigner","timeseries", "map"]
 js: denmark/foreigners.js
 ---
 
+Statistics about foreigners in Denmark is available in multiple places on the internet. Official state portal for foreigners moving to Denmark publishes [yearly reports](http://www.nyidanmark.dk/da-dk/Statistik/SearchStatistics.htm?searchtype=statistics) on foreigners in Denmark, while Danish statistical agency has a [whole section](http://www.dst.dk/da/Statistik/emner/indvandrere-og-efterkommere.aspx) on its site that is dedicated to statistics about those who were born outside Denmark but live in it.
+
+One common thing that is reflected in publications on both places is that share of foreign-born Danish residents is steadily rising during last fifteen years.
+
+<div id="share"></div> 
+
+However it would be interesting to see which parts of Denmark have higher share of foreigners.
+
 <div id="foreigners"></div>
 

@@ -51,7 +51,8 @@ require(["chart_base","scatter_base", "queue", "d3"], function(BaseChart,Scatter
             domain: [0.25, 0.45],
             tooltip_format: d3.format(".2%"),
             legend_format: d3.format(".2%"),
-            template_string: "Share of household income that goes to taxes in <%= year %>"            
+            template_string: "Share of household income that goes to taxes in <%= year %>" ,
+            y_label: "Tax rate"           
         });
         ch.render();
         ch.render_map(dk_map);
@@ -63,8 +64,8 @@ require(["chart_base","scatter_base", "queue", "d3"], function(BaseChart,Scatter
         scatter_dataset = []
 
         tax_data.forEach(function(d){
-            scatter_dataset.push({muni: d["muni"], 
-                tax_rate: d["tax-2012"], 
+            scatter_dataset.push({kommune: d["muni"], 
+                "tax rate": d["tax-2012"], 
                 income: _.findWhere(income_data, {muni: d["muni"]})["2012"]})
         })
 
@@ -83,7 +84,7 @@ require(["chart_base","scatter_base", "queue", "d3"], function(BaseChart,Scatter
             width: 500,
             height: 500,            
             x_var: "income",
-            y_var: "tax_rate",
+            y_var: "tax rate",
             tooltip_format: f,
             r: 7,
         }); 

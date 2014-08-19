@@ -49,7 +49,7 @@ require(["chart_base","scatter_base", "queue", "d3"], function(BaseChart,Scatter
             domain: [0, 0.15],
             tooltip_format: d3.format(".2%"),
             legend_format: d3.format(".2%"),
-            template_string: "Share of foreigners by kommune in 2013",
+            template_string: "Share of foreigners by kommune in 2012",
             sparkline: false           
         });
         ch.render();

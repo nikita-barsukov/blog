@@ -6,7 +6,8 @@ define(["d3", "jquery", "backbone"], function(d3){
             buckets: 8,
             y_domain: [150000,550000],
             x_domain: [2000, 2012],
-            margin: {top: 0, right: 15, bottom: 10, left: 40}
+            margin: {top: 0, right: 15, bottom: 10, left: 40},
+            baseline: true
         },
 
         initialize: function(options) {
@@ -34,11 +35,6 @@ define(["d3", "jquery", "backbone"], function(d3){
                 .x(function(d) { return x_scale(d["x"])})
                 .y(function(d) { return y_scale(d["y"])});
 
-            var base_line_func = d3.svg.line()
-                .interpolate("linear")
-                .x(function(d) { return x_scale(d["x"])})
-                .y(function(d) { return y_scale(d["base"])});
-
             var yAxis = d3.svg.axis()
                   .scale(y_scale)
                   .ticks(4)
@@ -62,10 +58,17 @@ define(["d3", "jquery", "backbone"], function(d3){
                 .attr("d", function(d) {return line_func(dataset); });
 
             // base line
-            this.chart_container
-                .append("path")
-                .attr("class", "line base-line")
-                .attr("d", function(d) {return base_line_func(dataset); });
+            if(this.options.baseline){
+                var base_line_func = d3.svg.line()
+                    .interpolate("linear")
+                    .x(function(d) { return x_scale(d["x"])})
+                    .y(function(d) { return y_scale(d["base"])});            
+                this.chart_container
+                    .append("path")
+                    .attr("class", "line base-line")
+                    .attr("d", function(d) {return base_line_func(dataset); });                
+            }
+
         },
 
         render_year_line: function(year) {

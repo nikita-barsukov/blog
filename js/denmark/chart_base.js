@@ -71,11 +71,23 @@ define(["helpers", "line_chart", "d3", "backbone", "topojson", "jquery", "jquery
             var sc = helpers.color_scale_function(chart.options.domain, chart.options.palette, chart.options.buckets);
 
             var dataset = _.map(data, function(e){
-                return {kommune: e[chart.options.x_var], income: e[y_var]}
+                var p = {kommune: e[chart.options.x_var]};
+                if(chart.options.y_label){
+                    p[chart.options.y_label] = e[y_var]    
+                } else {
+                    p[y_var] = e[y_var]
+                }
+                
+                return p
             });
 
             dataset.forEach(function(d){
-                col = sc(d["income"]);
+                var col;
+                if(chart.options.y_label){
+                    col = sc(d[chart.options.y_label]);   
+                } else {
+                    col = sc(d[y_var]);
+                }                
                 chart.chart.selectAll("." + d["kommune"]).transition().duration(1000).attr("fill", col);
             });
 
@@ -105,8 +117,6 @@ define(["helpers", "line_chart", "d3", "backbone", "topojson", "jquery", "jquery
                                 elem["x"] = key.replace(chart.options['prefix'], "") 
                                 elem["y"] = raw_komdata[key]
                                 elem["base"] = base_data[key]
-                                console.log(elem)
-
                                 komdata.push(elem)
                             }
                         }                    
