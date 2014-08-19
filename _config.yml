@@ -3,6 +3,7 @@ auto: true
 safe: true
 server: true
 pygments: true
-ga: ''
-title: ''
-description: ''
+title: 'A blog of Nikita Barsukov'
+description: "Gallery of my data analysis projects, and other things that I'm interested in".
+gems:
+  - jekyll-redirect-from
