@@ -1,4 +1,4 @@
-h1, h2, h3 {
+h1, h2, h3, h4 {
   font-family: 'Quattrocento', serif;
 }
 body {
@@ -37,4 +37,13 @@ body {
   border: 1px solid black;
   margin: 5px;
   padding: 5px;
+}
+
+#sources{
+  font-size: smaller
+
+}
+
+#sources li {
+  font-style: italic;
 }
