@@ -188,7 +188,7 @@ define(["helpers", "line_chart", "d3", "backbone", "topojson", "jquery", "jquery
                     <div class='controls btn btn-default'><span class='glyphicon glyphicon-play'></span></div> \
                     <div class='slider'></div> \
                 </div>");
-            chart.$el.prepend("<h3 class='year-label'></h3>");
+            chart.$el.prepend("<h2 class='year-label'></h2>");
             chart.$el.find(".year-label").text(_.template(chart.options['template_string'], {year: "2000"}))
             chart.sl = chart.$el.find(".slider").slider({
                 orientation: "horizontal",
