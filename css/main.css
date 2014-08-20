@@ -2,27 +2,22 @@ h1, h2, h3 {
   font-family: 'Quattrocento', serif;
 }
 body {
-  font-family: 'Droid Sans', sans-serif;
+  font-family: 'Oxygen', sans-serif;
 }
 
 #logo {
-  font-family: 'PT Serif Caption', serif;
+  font-family: 'Quattrocento', serif;
   font-size: 72pt;
 }
 
 #main{
-  width: 900px;
+  max-width: 950px;
   font-size: 18px;
-  margin-left: auto ;
-  margin-right: auto ;
 }
 
 #about_block{
   position: fixed;
-  margin-left: -150px;
-  background-color: #EBEDE1;
-  width: 100px;
-  padding: 5px;
+  margin-right: 20px;
 }
 
 #about_block a{
@@ -36,4 +31,10 @@ body {
 #about_block a:visited{
   color: #636363;
   text-decoration: none;  
+}
+
+.preview {
+  border: 1px solid black;
+  margin: 5px;
+  padding: 5px;
 }

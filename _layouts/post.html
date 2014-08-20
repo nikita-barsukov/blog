@@ -5,12 +5,14 @@
 <meta name="description" content="{{ site.description }}">
 
 <link href='http://fonts.googleapis.com/css?family=Quattrocento' rel='stylesheet' type='text/css'>
-<link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
-<link href='/css/main.css' rel='stylesheet' type='text/css'> 
-<link href='/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Oxygen:300&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
 <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css">
+<link href='/css/main.css' rel='stylesheet' type='text/css'> 
+<link href='/css/visual.css' rel='stylesheet' type='text/css'> 
+<link href='/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
 <style>
 
   .content {display:none;}
@@ -22,70 +24,7 @@
     border-bottom: 1px solid black;
   }
 
-  path {
-    stroke: grey;
-    stroke-width: 1px;
-    stroke-linejoin: round; 
-  }
-  .year-line{
-    stroke: gray;
-  }
-
-  .legend-block {
-    stroke: black;
-  }
-  .legend-background {
-    fill: rgba(255, 255, 255, 0.9);
-  }
-
-  #tooltip {
-    display: none;
-    position: absolute;
-    background-color: rgba(255, 255, 255, 0.7);
-    border-radius: 5px;
-    border: 2px solid gray;
-  }
-
-  path.highlighted {
-    stroke: black!important;
-  }
-
-  .slider{
-    display: inline-block;
-    width: 50%;
-    margin-left: 10px;
-  }
-  .play-controls{
-    font-size: 16pt;
-    float: left;
-  }
-  .line{
-    fill: none;
-    stroke: black;
-  }
-  .base-line{
-    stroke: red;
-  }
-    
-  .axis path,
-  .axis line {
-    fill: none;
-    stroke: #000;
-    shape-rendering: crispEdges;
-  }
-
-  circle {
-    stroke: black;
-    fill: gray;
-  }
-
-  circle.highlighted{
-    fill: purple!important;
-  }
-
-  #tooltip text {
-    font-size: 8px;
-  }
+ 
 
 </style>
 
@@ -95,12 +34,15 @@
 
 </head>
 <body>
-	<div class='container'>
-    {%include sidebar.html%}
-    <div id="post" class="col-md-11">
-    <h1>{{page.title}}</h1>
-    {{content}}
+	<div class='container' id="main">
+    <div class="col-sm-2">
+      {%include sidebar.html%}
     </div>
-    <div id="tooltip"></div>
+    <div id="post" class="col-sm-9">
+      <h1>{{page.title}}</h1>
+      {{content}}
+    </div>
 	</div>
+  <div id="tooltip"></div>
+  {% include ga.html %}  
 </body>

@@ -7,34 +7,25 @@
         <meta name="description" content="{{ site.description }}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href='http://fonts.googleapis.com/css?family=Quattrocento' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=Droid+Sans' rel='stylesheet' type='text/css'>
-        <link href='http://fonts.googleapis.com/css?family=PT+Serif+Caption' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Oxygen:300&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
         <link href='/css/main.css' rel='stylesheet' type='text/css'> 
         <link href='/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
 
-        <style>
-          #main{
-            width: 700px ;
-
-          }
-          .preview {
-            border: 1px solid black;
-            margin: 5px;
-            padding: 5px;
-          }
-        </style>
     </head>
     <body>
 
-  <div id="main">
-    {% include sidebar.html %}
-    {% for post in site.posts %}
-      <div class="preview">
-        <h1>{{post.title }}</h1>
-        <p>{{post.summary}}</p>
-        <a href="{{ post.url }}">Read more</a>
-      </div>
-    {% endfor %}
+  <div id="main" class='container'>
+    <div class="row">
+      <div class="col-sm-2"> {% include sidebar.html %}</div>
+      <div class="col-sm-9">
+        {% for post in site.posts %}
+            <h1>{{post.title }}</h1>
+            <p>{{post.summary}} <a href="{{ post.url }}"><i class="glyphicon glyphicon-circle-arrow-right"></i></a></p>            
+            <hr/>
+        {% endfor %}  
+      </div>   
+    </div>
   </div>
   {% include ga.html %}
   </body>
