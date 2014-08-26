@@ -187,4 +187,4 @@ dbDisconnect(con)
 </code>
 </pre>
 
-And voilà, beautiful maps of running routes in a city are successfully generated.
+And voilà, beautiful maps of running routes in a city are [successfully generated]({% post_url 2014-07-25-endomondo %}).
