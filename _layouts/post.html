@@ -3,6 +3,8 @@
 <meta charset="utf-8">
 <title>{% if page.title %}{{ page.title }} &mdash; {% endif %}{{ site.title }}</title>
 <meta name="description" content="{{ site.description }}">
+<meta name="keywords" content="{{ page.tags | join: ', ' }}">
+<meta name="author" content="Nikita Barsukov">
 
 <link href='http://fonts.googleapis.com/css?family=Quattrocento' rel='stylesheet' type='text/css'>
 <link href='http://fonts.googleapis.com/css?family=Oxygen:300&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
@@ -15,17 +17,12 @@
 <link href='/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
 <style>
 
-  .content {display:none;}
-
   table{
     border-collapse:collapse;
   }
   th {
     border-bottom: 1px solid black;
   }
-
- 
-
 </style>
 
 {% if page.js %}

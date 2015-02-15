@@ -46,3 +46,8 @@ body {
 #sources li {
   font-style: italic;
 }
+
+p.info{
+  font-size: smaller;
+  color: gray;
+}
