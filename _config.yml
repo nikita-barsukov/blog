@@ -1,9 +1,10 @@
 port: 4000
-auto: true
-safe: true
-server: true
-pygments: true
+highlighter: true
+permalink: pretty
 title: "A blog of Nikita Barsukov"
 description: "Gallery of my data analysis projects, and other things that I'm interested in"
 gems:
   - jekyll-redirect-from
+  - jekyll/tagging
+tag_page_layout: tag_page
+tag_page_dir: tag
