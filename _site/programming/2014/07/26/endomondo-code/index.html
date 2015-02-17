@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<title>Generating running route maps. &mdash; A blog of Nikita Barsukov</title>
+<meta name="description" content="Gallery of my data analysis projects, and other things that I'm interested in">
+<meta name="keywords" content="endomondo, running, R, ruby, postgres, stamen, ggplot, visualisation">
+<meta name="author" content="Nikita Barsukov">
+
+<link href='http://fonts.googleapis.com/css?family=Quattrocento' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Oxygen:300&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css">
+<link href='/css/main.css' rel='stylesheet' type='text/css'> 
+<link href='/css/visual.css' rel='stylesheet' type='text/css'> 
+<link href='/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+<style>
+  table{
+    border-collapse:collapse;
+  }
+  th {
+    border-bottom: 1px solid black;
+  }
+</style>
+
+
+  <script data-main="/js/endo_howto.js" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.14/require.min.js"></script>
+
+
+</head>
+<body>
+	<div class='container' id="main">
+    <div class="col-sm-2">
+      <ul id="about_block" class="nav nav-pills nav-stacked">
+    <li><a href="/"><i id="logo" class="icon-5x">Б</i></a></li>
+    <li><a href="https://github.com/nikita-barsukov/"><i class="icon-github icon-4x"></i></a></li>
+    <li><a href="mailto:nikita@barsukov.net"><i class="icon-4x">@</i></a></li>
+</ul>
+    </div>
+    <div id="post" class="col-sm-9">
+      <h1>Generating running route maps.</h1>
+      <p class='info'>26 July 2014 | Tags: <a href="/tag/endomondo" rel="tag">endomondo</a>, <a href="/tag/running" rel="tag">running</a>, <a href="/tag/R" rel="tag">R</a>, <a href="/tag/ruby" rel="tag">ruby</a>, <a href="/tag/postgres" rel="tag">postgres</a>, <a href="/tag/stamen" rel="tag">stamen</a>, <a href="/tag/ggplot" rel="tag">ggplot</a>, <a href="/tag/visualisation" rel="tag">visualisation</a>   </p>
+      <p>I started gathering raw data from the public workouts. Thankfully, all the endomondo workouts are public by default. Moreover, the route is present directly in source of page as a JSON object. This turned out to be extremely helpful later when the raw log file was more than a dozen GB in size. </p>
+
+<p><a href="#" class="expander" data-expander-target="#endo_parser">Toggle Ruby code that extracts Endomondo workout data</a></p>
+
+<pre id="endo_parser" class="content">
+<code class="ruby">
+require 'net/https'
+require 'nokogiri'
+
+def parse_wout(w)
+    uri = URI.parse "https://www.endomondo.com/workouts/#{w}"
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    req = Net::HTTP::Get.new uri.path
+    r = http.request(req)
+
+    str = ""
+ 
+    if r.code == '200'
+    raw_body = r.body
+    doc = Nokogiri::XML(raw_body)
+    j = " "
+    name = doc.css('.profile-badge h1').text
+    str &lt;&lt; "'#{w}'"
+    str &lt;&lt; "\t"
+    str &lt;&lt; "'#{doc.css('.sport-name').text}'"
+    str &lt;&lt; "\t"
+    str &lt;&lt; "'#{doc.css('.date-time').text}'"
+    str &lt;&lt; "\t"
+    str &lt;&lt; "'#{name}'"
+    str &lt;&lt; "\t"
+        doc.css("script").each do |s|
+            if s.text.include? '"data":'
+            begin
+                j = s.text.gsub("\n", "") 
+                j = j.scan(/"data":(.*?\])/)[0][0]
+            rescue
+                next
+            end
+            end
+        end
+        str &lt;&lt; "'#{j}'"
+        str &lt;&lt; "\t"
+        nodes = %w(distance duration avg-speed max-speed calories)
+        nodes.each do |node|
+            t = doc.css(".side-tabs li.#{node} .value").text
+            str &lt;&lt; "'#{t}'"
+            str &lt;&lt; "\t"
+        end
+    end
+
+    str.chomp("\t")
+end
+</code>
+</pre>
+
+<p>Then I wrote a loop over numbers from 1 to several millions, extracted necessary data with the method above and wrote it to a text file. At the end I got a file with size around 20GB. Next step is processing this dataset.</p>
+
+<p>When the file was small, processing it with R took reasonable amount of time:</p>
+
+<p><a href="#" class="expander" data-expander-target="#r_dataset">Toggle R code that transforms log file of Endomondo runs to suitable dataset</a></p>
+
+<pre id="r_dataset" class="content">
+<code class="r">
+options(scipen=999)
+library("RJSONIO")
+x &lt;- read.csv("path/to/log/file", header=F, sep="\t", quote="'")
+colnames(x) &lt;- c("id", "type", "date","name", "route", "distance", "duration", "avg.speed", "max.speed", "calories")
+x &lt;- x[!duplicated(x$id),]
+x &lt;- x[x$route != " ",]
+x &lt;- x[!is.na(x$route),]
+x &lt;- droplevels.data.frame(x)
+for (i in 1:nrow(x)) {
+  z &lt;- as.character(x[i,5])  
+  z &lt;- fromJSON(z)
+  z &lt;- lapply(z, unlist)
+  ref.names &lt;- c("values.distance","values.duration","values.speed","values.alt","lng","lat")
+  z &lt;- lapply(z, function(d){
+    k &lt;- rep(0, length(ref.names))
+    names(k) &lt;- ref.names
+    for (i in ref.names){
+      if(!is.na(d[i])) {k[i] = d[i]}
+    }
+    if(!is.na(d["values.pace"])) {k["values.speed"] &lt;- d["values.pace"]}
+    k
+  })
+  z &lt;- data.frame(matrix(unlist(z), nrow=length(z), byrow=T))
+      
+  z[,7] &lt;- x[i,1]
+  z[,8] &lt;- x[i,2]
+  if(exists("f")){
+    f &lt;- rbind(f, z)
+  } else {
+    f &lt;- z
+  }
+}
+     
+colnames(f) &lt;- c("distance", "duration", "speed", "alt", "lon", "lat", "endo_id", "type")
+f &lt;- f[f$speed != 0,]    
+</code>
+</pre>
+
+<p>However this script did not work for larger files. Of course, it is possible to speed things up using R packages for big data, such as <code>parallel</code>, <code>foreach</code>, <code>data.table</code> etc. However I decided to take different approach. I created postgreSQL database on my workstation and loaded raw log file there. Before that I cleaned it: removed lines with unecessary workout types, leaving only running workouts, removed any missing values, or any incomplete strings. All of it using simple <code>grep</code> bash command. Why Postgres? Mainly because it supports JSON data type.</p>
+
+<p>Tricky thing there was to extract longitude, lattitude and workout ID.</p>
+
+<p><a href="#" class="expander" data-expander-target="#sql_json">Toggle PostgreSQL code that transforms JSON column</a></p>
+
+<pre class="content" id="sql_json">
+<code class="sql">
+SELECT (route -&gt;&gt; 'lng')::float AS lng,
+       (route -&gt;&gt; 'lat')::float AS lat,
+       id AS endo_id,
+       TYPE
+FROM
+  ( SELECT json_array_elements(route) route,
+       id,
+       TYPE
+   FROM workouts LIMIT 5) w;
+</code>
+</pre>
+
+<p>I used this statement to insert rows into separate table in the same database. Then I queried necessary datapoints and plotted it with R script.</p>
+
+<p><a href="#" class="expander" data-expander-target="#r_map">Toggle R code that generates map of runs in Copenhagen</a></p>
+
+<pre id="r_map" class="content">
+<code class="r">
+library('ggplot2')
+library('ggmap')
+library('plyr')
+library('RPostgreSQL')
+library('png')
+
+city &lt;- "copenhagen"
+i &lt;- c(55.67611,12.56833) # decimal coordinates of Copehagen
+
+boundaries &lt;- list(lon=c(i[1] - 0.5,i[1] + 0.5), lat=c(i[2] - 0.5,i[2] + 0.5))
+query &lt;- paste("select * from gps_points where lon &gt; ",boundaries$lon[1] ,
+                 " AND lon &lt; ",boundaries$lon[2], 
+                 "AND lat &gt;", boundaries$lat[1],
+                 "AND lat &lt;", boundaries$lat[2],
+            # This part of query is probably not necessary if you removed unecessary workouts before.
+                 "AND type IN ('Walking','Running')")  
+drv &lt;- dbDriver("PostgreSQL")
+con &lt;- dbConnect(drv, dbname="database_name",user="database_user")
+rs &lt;- dbSendQuery(con,query)
+  
+z &lt;- fetch(rs, -1)
+  
+watercolor &lt;- get_map(location=c(lon=i[1], lat=i[2]), 
+                        source = "stamen",
+                        maptype = "watercolor",
+                        zoom=12)
+m &lt;- ggmap(watercolor) +
+    geom_path(data = z, aes(x=lon, y=lat,group=endo_id),color=rgb(0,0,0,i[3])) +
+    theme(
+      axis.line = element_blank(),
+      axis.text.y = element_blank(),
+      axis.text.x = element_blank(),
+      axis.ticks = element_blank(),
+      axis.title.x = element_blank(),
+      axis.title.y = element_blank(),
+      panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank(),
+      panel.border = element_blank(),
+      panel.background = element_blank(),
+      legend.key = element_rect(fill = "white",colour = "white"),
+      legend.background = element_blank() 
+    )
+png(paste("plots/", city, ".png", sep=""), width = 900, height = 900)
+print(m)  
+dev.off()
+  
+dbDisconnect(con)  
+
+</code>
+</pre>
+
+<p>And voilà, beautiful maps of running routes in a city are <a href="/visualisation/2014/07/25/endomondo/">successfully generated</a>.</p>
+
+    </div>
+	</div>
+  <div id="tooltip"></div>
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-43677904-2', 'barsukov.net');
+    ga('send', 'pageview');
+  </script>  
+</body>

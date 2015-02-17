@@ -1,0 +1,68 @@
+ path {
+    stroke: grey;
+    stroke-width: 1px;
+    stroke-linejoin: round; 
+  }
+  .year-line{
+    stroke: gray;
+  }
+
+  .legend-block {
+    stroke: black;
+  }
+  .legend-background {
+    fill: rgba(255, 255, 255, 0.9);
+  }
+
+  #tooltip {
+    display: none;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+    border: 2px solid gray;
+  }
+
+  path.highlighted {
+    stroke: black!important;
+  }
+
+  .slider{
+    display: inline-block;
+    width: 50%;
+    margin-left: 10px;
+  }
+  .play-controls{
+    font-size: 16pt;
+    float: left;
+  }
+  .line{
+    fill: none;
+    stroke: black;
+  }
+  .base-line{
+    stroke: red;
+  }
+    
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+  }
+
+  circle {
+    stroke: black;
+    fill: gray;
+  }
+
+  circle.highlighted{
+    fill: purple!important;
+  }
+
+  #tooltip text {
+    font-size: 8pt;
+  }
+
+  .axis text, .legend text {
+    font-size: 10pt;
+  }

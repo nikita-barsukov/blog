@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<title>Maps of running routes in European cities. &mdash; A blog of Nikita Barsukov</title>
+<meta name="description" content="Gallery of my data analysis projects, and other things that I'm interested in">
+<meta name="keywords" content="endomondo, running, copenhagen, fitness, map">
+<meta name="author" content="Nikita Barsukov">
+
+<link href='http://fonts.googleapis.com/css?family=Quattrocento' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Oxygen:300&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css">
+<link href='/css/main.css' rel='stylesheet' type='text/css'> 
+<link href='/css/visual.css' rel='stylesheet' type='text/css'> 
+<link href='/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+<style>
+  table{
+    border-collapse:collapse;
+  }
+  th {
+    border-bottom: 1px solid black;
+  }
+</style>
+
+
+
+</head>
+<body>
+	<div class='container' id="main">
+    <div class="col-sm-2">
+      <ul id="about_block" class="nav nav-pills nav-stacked">
+    <li><a href="/"><i id="logo" class="icon-5x">Б</i></a></li>
+    <li><a href="https://github.com/nikita-barsukov/"><i class="icon-github icon-4x"></i></a></li>
+    <li><a href="mailto:nikita@barsukov.net"><i class="icon-4x">@</i></a></li>
+</ul>
+    </div>
+    <div id="post" class="col-sm-9">
+      <h1>Maps of running routes in European cities.</h1>
+      <p class='info'>25 July 2014 | Tags: <a href="/tag/endomondo" rel="tag">endomondo</a>, <a href="/tag/running" rel="tag">running</a>, <a href="/tag/copenhagen" rel="tag">copenhagen</a>, <a href="/tag/fitness" rel="tag">fitness</a>, <a href="/tag/map" rel="tag">map</a>   </p>
+         <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+   <script src="http://malsup.github.com/jquery.cycle2.js"></script>
+    <style type="text/css">
+      #pager{
+        font-size: 20pt;
+        cursor: pointer;
+      }
+      #pager span:hover{
+        color: gray;
+      }
+      .cycle-pager-active{
+        color: red!important;
+      }
+      .cycle-next, .cycle-prev {
+        margin-top: 10px;
+        display: inline-block;
+        cursor: pointer;
+      }
+    </style>   
+   <p>Endomondo is a fitness tracking mobile app. By default user tracks are public and available online. I parsed first 170k public workouts, extracted GPS data out of them and put routes on city maps.</p>
+
+    <p>Despite the fact that raw log of these workouts was around 20 Gb in size, this is only around 1% of all the workouts available.</p>
+
+    <p>This is map of running and walking workouts in selected European cities.</p>
+    <div id="city-maps"  class="cycle-slideshow" data-cycle-loader="true" data-cycle-fx="scrollHorz" data-cycle-pager="#pager" data-cycle-timeout="0" data-cycle-slides="div.city-map">
+      <div class="cycle-prev">&larr;</div>
+      <div class="cycle-next">&rarr;</div>
+
+      <div class="city-map">
+        <h3>Copenhagen</h3>
+        <img class="map" src="https://s3-eu-west-1.amazonaws.com/barsukov-assets/images/copenhagen.png" alt="Endomondo workouts in Copenhagen"/>        
+      </div>
+
+      <div class="city-map">
+        <h3>Stockholm</h3>
+        <p><img class="map" src="https://s3-eu-west-1.amazonaws.com/barsukov-assets/images/stockholm.png" alt="Endomondo workouts in Stockholm"/></p>       
+      </div>
+
+      <div class="city-map">
+        <h3>Oslo</h3>
+        <img class="map" src="https://s3-eu-west-1.amazonaws.com/barsukov-assets/images/oslo.png" alt="Endomondo workouts in Oslo"/>      
+      </div>
+
+      <div class="city-map">
+        <h3>Helsinki</h3>
+        <img class="map" src="https://s3-eu-west-1.amazonaws.com/barsukov-assets/images/helsinki.png" alt="Endomondo workouts in Helsinki"/>       
+      </div>
+
+      <div class="city-map">
+        <h3>Barcelona</h3>
+        <img class="map" src="https://s3-eu-west-1.amazonaws.com/barsukov-assets/images/barcelona.png" alt="Endomondo workouts in Barcelona"/> 
+      </div>
+
+      <div class="city-map">
+        <h3>Warsaw</h3>
+        <img class="map" src="https://s3-eu-west-1.amazonaws.com/barsukov-assets/images/warsaw.png" alt="Endomondo workouts in Warsaw"/>       
+      </div>
+
+      <div class="city-map">
+        <h3>Berlin</h3>
+        <img class="map" src="https://s3-eu-west-1.amazonaws.com/barsukov-assets/images/berlin.png" alt="Endomondo workouts in Berlin"/>      
+      </div>
+
+    </div>
+    <div id="pager" class="cycle-pager"></div>
+
+    <p>I used a script in Ruby to download HTML pages of endomondo workouts, extract necessary information and write it to a delimited file. Then I used <a href="http://www.r-project.org">R</a> to clean up log files, extract GPS coordinates and put them on map. R libraries I used: <a href="http://ggplot2.org">ggplot</a> and <a href="http://cran.r-project.org/web/packages/ggmap/index.html">ggmap</a> for plotting, RJSONIO for parsing JSON data. Map tiles are from <a href="http://maps.stamen.com/watercolor/#11/55.6757/12.5676">Stamen</a>. Code behind this project is in a <a href="http://barsukov.net/programming/2014/07/26/endomondo-code.html">separate post</a>.</p>
+  </div>
+    </div>
+	</div>
+  <div id="tooltip"></div>
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-43677904-2', 'barsukov.net');
+    ga('send', 'pageview');
+  </script>  
+</body>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<head>
+<meta charset="utf-8">
+<title>Tax rate Danish families pay. &mdash; A blog of Nikita Barsukov</title>
+<meta name="description" content="Gallery of my data analysis projects, and other things that I'm interested in">
+<meta name="keywords" content="denmark, taxes, scatterplot, map">
+<meta name="author" content="Nikita Barsukov">
+
+<link href='http://fonts.googleapis.com/css?family=Quattrocento' rel='stylesheet' type='text/css'>
+<link href='http://fonts.googleapis.com/css?family=Oxygen:300&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
+<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css">
+<link href='/css/main.css' rel='stylesheet' type='text/css'> 
+<link href='/css/visual.css' rel='stylesheet' type='text/css'> 
+<link href='/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+<style>
+  table{
+    border-collapse:collapse;
+  }
+  th {
+    border-bottom: 1px solid black;
+  }
+</style>
+
+
+  <script data-main="/js/denmark/taxes.js" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.14/require.min.js"></script>
+
+
+</head>
+<body>
+	<div class='container' id="main">
+    <div class="col-sm-2">
+      <ul id="about_block" class="nav nav-pills nav-stacked">
+    <li><a href="/"><i id="logo" class="icon-5x">Б</i></a></li>
+    <li><a href="https://github.com/nikita-barsukov/"><i class="icon-github icon-4x"></i></a></li>
+    <li><a href="mailto:nikita@barsukov.net"><i class="icon-4x">@</i></a></li>
+</ul>
+    </div>
+    <div id="post" class="col-sm-9">
+      <h1>Tax rate Danish families pay.</h1>
+      <p class='info'>30 July 2014 | Tags: <a href="/tag/denmark" rel="tag">denmark</a>, <a href="/tag/taxes" rel="tag">taxes</a>, <a href="/tag/scatterplot" rel="tag">scatterplot</a>, <a href="/tag/map" rel="tag">map</a>   </p>
+      <div id="tldr">
+    <h3>Summary</h3>
+    <ul>
+        <li>Share of family income in Denmark that goes to taxes on national level was around 30% in 2012</li>
+        <li>It went down from almost 39% in 2000</li>
+        <li>It is loosely connected to average income.</li>     
+    </ul>   
+</div>
+
+<hr />
+
+<p>Scandinavia and Denmark as its part is famous among other things for its welfare state. It is a common knowledge that this is achieved through high taxes, which I want to confirm (or bust) with actual data. This is a map of effective tax rate of Danish households, or average actual share of household income that goes as income tax. I took disposable income data and gross income data from Danish statistics site.</p>
+
+<div id="taxes"></div>
+
+<p>I mentioned in <a href="/visualisation/2014/07/03/income/">an earlier post</a> that income is disributed very closely to national average in Denmark. Effective tax rate has similar feature. It changes in the same way both in kommunes and on the state level. This may be due to Danish legislation, however.</p>
+
+<p>First thing that surprized me is that share of income that goes for taxes is declining sharply for last 13 years. With an exception of 2008-09 effective tax rate in almost all of the kommunes, as well as nationally, goes down. On national level effective tax rate is down by 8.5 percentage points since 2000, while in several kommunes the drop is more than 10 percentage points (rich kommunes Gentofte or Dragør are among them).</p>
+
+<p>Another remarkable thing is that efective tax rate in kommunes is not directly linked to median household income. Let’s look at the chart below.</p>
+
+<div id="scatter">
+    <h2>Real taxes and gross income in Denmark in 2012</h2>
+</div>
+
+<p>As we can clearly see from this scatterplot the connection between gross family income and share of taxes family pays is very weak. Families in some of richer kommunes, like Gentofte or Rudersdal, on average pay less than 30% of their income as taxes, while families in poorer kommunes like state’s capital Copenhagen or tiny <a href="http://en.wikipedia.org/wiki/Tønder_Municipality">Tønder</a> pay more than 32%.</p>
+
+<hr />
+
+<div id="sources">
+<h4>Data sources:</h4>
+<ol>
+    <li><a href="http://www.statistikbanken.dk/INDKF32">INDKF32</a>: Disponible familieindkomst efter kommune ,enhed, familietype og indkomstinterval</li>
+    <li><a href="http://www.statistikbanken.dk/INDKF22">INDKF22</a>: Familiernes indkomst i alt efter kommune, enhed, familietype og indkomstinterval</li>
+</ol>
+</div>
+
+    </div>
+	</div>
+  <div id="tooltip"></div>
+    <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-43677904-2', 'barsukov.net');
+    ga('send', 'pageview');
+  </script>  
+</body>
