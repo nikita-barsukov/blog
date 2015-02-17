@@ -3,7 +3,7 @@ requirejs.config({
         jquery: '//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min',
         backbone: '//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min',
         d3: "//cdnjs.cloudflare.com/ajax/libs/d3/3.4.9/d3.min",
-        queue: "d3js.org/queue.v1.min",
+        queue: "//d3js.org/queue.v1.min",
         topojson: "//cdnjs.cloudflare.com/ajax/libs/topojson/1.1.0/topojson.min",
         underscore: "//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore-min",
         colorbrewer: "/js/vendor/colorbrewer",
