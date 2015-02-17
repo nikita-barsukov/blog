@@ -1,7 +1,7 @@
 requirejs.config({
     paths: {
         jquery: '//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min',
-        highlight: "http://cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min",
+        highlight: "//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/highlight.min",
         simpleexpand: "/js/vendor/simple-expand.min"
     },
     shims: {
