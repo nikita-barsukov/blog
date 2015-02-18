@@ -8,4 +8,4 @@ gems:
   - jekyll/tagging
 tag_page_layout: tag_page
 tag_page_dir: tag
-exclude: [README.md, Gemfile, Gemfile.lock, config.ru, CNAME]
+exclude: [README.md, Gemfile, Gemfile.lock, config.ru, CNAME, unicorn.rb, Procfile]

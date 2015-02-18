@@ -57,8 +57,5 @@ require(["chart_base","scatter_base", "queue", "d3"], function(BaseChart,Scatter
         ch.render_legend();
 
         ch.render_cholopleth(foreigners_data, "share"); 
-
-         
-
     }
 })
