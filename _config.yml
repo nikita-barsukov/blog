@@ -7,4 +7,4 @@ gems:
   - jekyll-redirect-from
 tag_page_layout: tag_page
 tag_page_dir: tag
-exclude: [README.md, Gemfile, Gemfile.lock, config.ru, CNAME, unicorn.rb, Procfile]
+exclude: [README.md, Gemfile, Gemfile.lock, config.ru, CNAME, unicorn.rb, Procfile, vendor]
