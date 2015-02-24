@@ -1,40 +1,6 @@
-<!DOCTYPE html>
-<head>
-<meta charset="utf-8">
-<title>{% if page.title %}{{ page.title }} &mdash; {% endif %}{{ site.title }}</title>
-<meta name="description" content="{{ site.description }}">
-<meta name="keywords" content="{{ page.tags | join: ', ' }}">
-<meta name="author" content="Nikita Barsukov">
-{% include stylesheets.html %}  
-<link rel="stylesheet" href="//code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" />
-<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css">
-<link href='/css/main.css' rel='stylesheet' type='text/css'> 
-<link href='/css/visual.css' rel='stylesheet' type='text/css'> 
-<style>
-  table{
-    border-collapse:collapse;
-  }
-  th {
-    border-bottom: 1px solid black;
-  }
-</style>
-
-{% if page.js %}
-  <script data-main="/js/{{ page.js }}" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.14/require.min.js"></script>
-{% endif %}
-
-</head>
-<body>
-	<div class='container' id="main">
-    <div class="col-sm-2">
-      {%include sidebar.html%}
-    </div>
-    <div id="post" class="col-sm-9">
+---
+layout: main
+---
       <h1>{{page.title}}</h1>
       <p class='info'>{{page.date | date: "%-d %B %Y"}} | Tags: {{ page | tags }}   </p>
       {{content}}
-    </div>
-	</div>
-  <div id="tooltip"></div>
-  {% include ga.html %}  
-</body>

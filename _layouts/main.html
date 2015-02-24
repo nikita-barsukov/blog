@@ -1,0 +1,29 @@
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>{% if page.title %}{{ page.title }} &mdash; {% endif %}{{ site.title }}</title>
+        <meta name="author" content="Nikita Barsukov">
+        <meta name="description" content="{{ site.description }}">
+        {% include stylesheets.html %}  
+
+        {% if page.js %}
+          <script data-main="/js/{{ page.js }}" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.14/require.min.js"></script>
+        {% endif %}
+    </head>
+    <body>
+      <div id="main" class='container'>
+        <div class="row">
+          <div id='about-block' class="col-sm-2"> {% include sidebar.html %}</div>
+          <div id='text' class="col-sm-7">
+            {{content}}
+          </div>   
+        </div>
+      </div>
+      <div id="tooltip"></div>
+        {% include ga.html %}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+    </body>
+</html>

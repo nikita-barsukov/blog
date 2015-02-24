@@ -1,18 +1,6 @@
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <title></title>
-        <meta name="author" content="Nikita Barsukov">
-        <meta name="description" content="{{ site.description }}">
-        {% include stylesheets.html %}  
-        <link href='/css/main.css' rel='stylesheet' type='text/css'> 
-        <link href='/css/font-awesome.min.css' rel='stylesheet' type='text/css'>
-    </head>
-    <body>
-      <div id="main" class='container'>
-        <div class="row">
-          <div class="col-sm-2"> {% include sidebar.html %}</div>
-          <div class="col-sm-9">
+---
+layout: main
+---
             <div class="page-header">
                 <h1>Posts with tag {{ page.tag }}</h1>
             </div>
@@ -22,9 +10,3 @@
                 <p>{{post.summary}}</p>
                 <hr/>
             {% endfor %}  
-          </div>   
-        </div>
-      </div>
-  {% include ga.html %}
-  </body>
-</html>

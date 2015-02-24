@@ -14,9 +14,34 @@ body {
   font-size: 18px;
 }
 
+@media (min-width: 768px) {
+  .sidebar-nav .navbar .navbar-collapse {
+    padding: 0;
+    max-height: none;
+  }
+  .sidebar-nav .navbar ul {
+    float: none;
+  }
+  .sidebar-nav .navbar ul:not {
+    display: block;
+  }
+  .sidebar-nav .navbar li {
+    float: none;
+    display: block;
+  }
+  .sidebar-nav .navbar li a {
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+}
+
 #about_block{
   position: fixed;
-  margin-right: 20px;
+  float: right;
+  z-index: 1000;
+}
+#text{
+  top: 35px;
 }
 
 #about_block a{
@@ -51,3 +76,10 @@ p.info{
   font-size: smaller;
   color: gray;
 }
+
+  table{
+    border-collapse:collapse;
+  }
+  th {
+    border-bottom: 1px solid black;
+  }
