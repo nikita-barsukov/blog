@@ -1,12 +1,12 @@
 h1, h2, h3, h4 {
-  font-family: 'Quattrocento', serif;
+  font-family:'Pontif LP W01 Regular', serif;
 }
-body {
-  font-family: 'Oxygen', sans-serif;
+p, svg {
+  font-family: 'Verdana', sans-serif;
 }
 
 #logo {
-  font-family: 'Quattrocento', serif;
+  font-family: serif;
   font-size: 72pt;
 }
 
@@ -50,7 +50,7 @@ body {
 }
 #about_block a:hover{
   color: black;
-  text-decoration: underline;  
+  text-decoration: none;  
 }
 #about_block a:visited{
   color: #636363;
