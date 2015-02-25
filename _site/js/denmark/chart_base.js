@@ -123,7 +123,8 @@ define(["helpers", "line_chart", "d3", "backbone", "topojson", "jquery", "jquery
                         
                         var spark = new LineChart({
                             el: "#tooltip",
-                            y_domain: chart.options['domain']
+                            y_domain: chart.options['domain'],
+                            margin: chart.options['tooltip_margins'],
                         });
                         spark.render(komdata);
                         spark.render_year_line(chart.sl.slider("option", "value"))

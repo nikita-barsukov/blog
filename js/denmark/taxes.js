@@ -49,6 +49,7 @@ require(["chart_base","scatter_base", "queue", "d3"], function(BaseChart,Scatter
             prefix: "tax-",
             buckets: 8,
             domain: [0.25, 0.45],
+            tooltip_margins: {top: 0, right: 15, bottom: 10, left: 40},            
             tooltip_format: d3.format(".2%"),
             legend_format: d3.format(".2%"),
             template_string: "Share of household income that goes to taxes in <%= year %>" ,

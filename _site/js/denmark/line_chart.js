@@ -6,7 +6,6 @@ define(["d3", "jquery", "backbone"], function(d3){
             buckets: 8,
             y_domain: [150000,550000],
             x_domain: [2000, 2012],
-            margin: {top: 0, right: 15, bottom: 10, left: 40},
             baseline: true
         },
 

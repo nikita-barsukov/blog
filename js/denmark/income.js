@@ -44,6 +44,7 @@ require(["chart_base", "queue", "d3"], function(BaseChart, queue, d3){
             el: "#disposable-income",
             palette: "PuRd",
             tooltip: true,
+            tooltip_margins: {top: 0, right: 15, bottom: 10, left: 50},
             enhance: false,
         });
         ch.render();
