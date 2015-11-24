@@ -7,6 +7,9 @@
         <meta name="author" content="Nikita Barsukov">
         <meta name="description" content="{{ site.description }}">
         {% include stylesheets.html %}  
+        {% if page.css %}
+          <link href="{{page.css}}" rel="stylesheet" >
+        {% endif %}        
 
         {% if page.js %}
           <script data-main="/js/{{ page.js }}" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.14/require.min.js"></script>
@@ -17,7 +20,7 @@
         <div class="row">
           <div id='about-block' class="col-sm-2"> {% include sidebar.html %}</div>
           <div id='text' class="col-sm-7">
-            {{content}}
+            {{ content | toc_generate }}
             {% include mailchimp.html %}
           </div>   
         </div>

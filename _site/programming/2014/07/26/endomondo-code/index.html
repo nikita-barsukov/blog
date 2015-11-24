@@ -34,6 +34,7 @@
         </style>        
 
   
+                
 
         
           <script data-main="/js/endo_howto.js" src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.14/require.min.js"></script>
@@ -64,9 +65,11 @@
 </div>
 </div>
           <div id='text' class="col-sm-7">
-                  <h1>Generating running route maps.</h1>
-      <p class='info'>26 July 2014 | Tags: <a href="/tag/endomondo" rel="tag">endomondo</a>, <a href="/tag/running" rel="tag">running</a>, <a href="/tag/R" rel="tag">R</a>, <a href="/tag/ruby" rel="tag">ruby</a>, <a href="/tag/postgres" rel="tag">postgres</a>, <a href="/tag/stamen" rel="tag">stamen</a>, <a href="/tag/ggplot" rel="tag">ggplot</a>, <a href="/tag/visualisation" rel="tag">visualisation</a>   </p>
-      <p>I started gathering raw data from the public workouts. Thankfully, all the endomondo workouts are public by default. Moreover, the route is present directly in source of page as a JSON object. This turned out to be extremely helpful later when the raw log file was more than a dozen GB in size. </p>
+            <div class="page-header">
+  <p class='page-title'>Generating running route maps.</p>
+  <p class='info'>26 July 2014 | Tags: <a href="/tag/endomondo/" rel="tag">endomondo</a>, <a href="/tag/running/" rel="tag">running</a>, <a href="/tag/r/" rel="tag">R</a>, <a href="/tag/ruby/" rel="tag">ruby</a>, <a href="/tag/postgres/" rel="tag">postgres</a>, <a href="/tag/stamen/" rel="tag">stamen</a>, <a href="/tag/ggplot/" rel="tag">ggplot</a>, <a href="/tag/visualisation/" rel="tag">visualisation</a>   </p>
+</div>
+      <p>I started gathering raw data from the public workouts. Thankfully, all the endomondo workouts are public by default. Moreover, the route is present directly in source of page as a JSON object. This turned out to be extremely helpful later when the raw log file was more than a dozen GB in size.</p>
 
 <p><a href="#" class="expander" data-expander-target="#endo_parser">Toggle Ruby code that extracts Endomondo workout data</a></p>
 
@@ -247,7 +250,7 @@ dbDisconnect(con)
 
 <p>And voilà, beautiful maps of running routes in a city are <a href="/visualisation/2014/07/25/endomondo/">successfully generated</a>.</p>
 
-      <hr/>
+
             
 <div id="mc_embed_signup">
         <h4 id='subscribe-header'>Subscribe to blog updates</h4>

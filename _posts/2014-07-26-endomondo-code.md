@@ -6,6 +6,7 @@ summary: A post for people who can write code about how I generated images for m
 category: "programming"
 js: endo_howto.js
 tags: ["endomondo", "running","R","ruby","postgres","stamen","ggplot","visualisation"]
+noToc: true
 ---
 
 I started gathering raw data from the public workouts. Thankfully, all the endomondo workouts are public by default. Moreover, the route is present directly in source of page as a JSON object. This turned out to be extremely helpful later when the raw log file was more than a dozen GB in size. 

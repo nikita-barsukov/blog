@@ -5,6 +5,12 @@ p, li {
   font-family: 'Verdana', sans-serif;
 }
 
+.page-header .page-title{
+  font-family:'Pontif LP W01 Regular', serif;
+  font-size: 38pt;
+  font-weight: bold;
+}
+
 #logo {
   font-family: serif;
   font-size: 72pt;
@@ -39,9 +45,6 @@ p, li {
   position: fixed;
   float: right;
   z-index: 1000;
-}
-#text{
-  top: 35px;
 }
 
 #about_block a{

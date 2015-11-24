@@ -1,0 +1,533 @@
+<!doctype html>
+
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Crime and demographic factors in Los Angeles and Chicago. &mdash; A blog of Nikita Barsukov</title>
+        <meta name="author" content="Nikita Barsukov">
+        <meta name="description" content="Gallery of my data analysis projects, and other things that I'm interested in">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href='/css/font-awesome.min.css' rel='stylesheet' type='text/css'>        
+        <link href="http://fast.fonts.net/cssapi/b7310ad5-5ffb-4ab3-8ec5-7fc0a70e6421.css" type="text/css" rel="stylesheet" />
+        <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" rel="stylesheet" >
+        <link href="//code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css" rel="stylesheet" />
+        <link href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.1/styles/default.min.css" rel="stylesheet" >        
+        <link href='/css/main.css' rel='stylesheet' type='text/css'> 
+        <link href='/css/visual.css' rel='stylesheet' type='text/css'> 
+        <link href="//cdn-images.mailchimp.com/embedcode/classic-081711.css" rel="stylesheet" type="text/css">
+        <style type="text/css">
+            #mc_embed_signup{background:#fff; clear:left; font:14px }
+            #subscribe-header {
+                padding: 10px;
+                display: inline-block;
+                cursor: pointer;
+                background-color: #fff;
+                border: 2px solid #bbb;
+            }
+
+            #subscribe-header:hover {
+                background-color: #ddd;
+            }
+            #mc_embed_signup form{
+              display: none;
+            }
+        </style>        
+
+  
+        
+          <link href="/css/style-crime.css" rel="stylesheet" >
+                
+
+        
+    </head>
+    <body>
+      <div id="main" class='container'>
+        <div class="row">
+          <div id='about-block' class="col-sm-2"> <div class='sidebar-nav'>
+    <nav class="navbar navbar-default" id="about_block">
+        <div class="navbar-header">
+            <button data-target=".sidebar-navbar-collapse" data-toggle="collapse" class="navbar-toggle" type="button">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            </button>
+            <span class="visible-xs navbar-brand">Site menu</span>
+        </div>
+        <div class="navbar-collapse collapse sidebar-navbar-collapse">
+            <ul class="nav nav-pills nav-stacked">
+                <li><a href="/"><i id="logo" class="icon-5x">Б</i></a></li>
+                <li><a href="https://github.com/nikita-barsukov/"><i class="icon-github icon-4x"></i></a></li>
+                <li><a href="mailto:nikita@barsukov.net"><i class="icon-4x">@</i></a></li>
+            </ul>
+        </div>
+    </nav>
+</div>
+</div>
+          <div id='text' class="col-sm-7">
+            <div id="toc-container">
+   <table class="toc" id="toc">
+      <tbody>
+         <tr>
+            <td>
+               <div id="toctitle">
+                  <h2>Contents</h2>
+               </div>
+               <ul>
+                  <li class="toc_level-1 toc_section-1">
+                     <a href="#tocAnchor-1-1"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a>
+                     <ul>
+                        <li class="toc_level-2 toc_section-2">
+                           <a href="#tocAnchor-1-1-1"><span class="tocnumber">1.1</span> <span class="toctext">Research question</span></a>
+                        </li>
+                        <li class="toc_level-2 toc_section-3">
+                           <a href="#tocAnchor-1-1-2"><span class="tocnumber">1.2</span> <span class="toctext">Constructing research dataset.</span></a>
+                        </li>
+                     </ul>
+                  </li>
+                  <li class="toc_level-1 toc_section-4">
+                     <a href="#tocAnchor-1-4"><span class="tocnumber">2</span> <span class="toctext">Analysis and exploration of data</span></a>
+                     <ul>
+                        <li class="toc_level-2 toc_section-5">
+                           <a href="#tocAnchor-1-4-1"><span class="tocnumber">2.1</span> <span class="toctext">Summary of crime dataset</span></a>
+                        </li>
+                        <li class="toc_level-2 toc_section-6">
+                           <a href="#tocAnchor-1-4-2"><span class="tocnumber">2.2</span> <span class="toctext">Univariate plots.</span></a>
+                        </li>
+                        <li class="toc_level-2 toc_section-7">
+                           <a href="#tocAnchor-1-4-3"><span class="tocnumber">2.3</span> <span class="toctext">Bivariate plots.</span></a>
+                        </li>
+                        <li class="toc_level-2 toc_section-8">
+                           <a href="#tocAnchor-1-4-4"><span class="tocnumber">2.4</span> <span class="toctext">Spatial plots of crime data</span></a>
+                        </li>
+                        <li class="toc_level-2 toc_section-9">
+                           <a href="#tocAnchor-1-4-5"><span class="tocnumber">2.5</span> <span class="toctext">Correlation coefficients</span></a>
+                        </li>
+                     </ul>
+                  </li>
+                  <li class="toc_level-1 toc_section-10">
+                     <a href="#tocAnchor-1-10"><span class="tocnumber">3</span> <span class="toctext">Final plots and summary</span></a>
+                  </li>
+                  <li class="toc_level-1 toc_section-11">
+                     <a href="#tocAnchor-1-11"><span class="tocnumber">4</span> <span class="toctext">Reflection</span></a>
+                  </li>
+               </ul>
+            </td>
+         </tr>
+      </tbody>
+   </table>
+</div><div class="page-header">
+  <p class="page-title">Crime and demographic factors in Los Angeles and Chicago.</p>
+  <p class="info">23 November 2015 | Tags: <a href="/tag/usa/" rel="tag">usa</a>, <a href="/tag/crime/" rel="tag">crime</a>, <a href="/tag/los-angeles/" rel="tag">los angeles</a>, <a href="/tag/map/" rel="tag">map</a>, <a href="/tag/scatterplot/" rel="tag">scatterplot</a>   </p>
+</div>
+      <h1 id="tocAnchor-1-1">Introduction</h1>
+<p>I’ve been alsways interested in statistics and sociology of crime. Questions like ‘Is there a connection between crime and poverty?’, ‘Does level of educaiton correlates with crime rate?’ or ‘Are factors correlated with property and personal crimes different or not?’ have been dragging my attention for a long time.</p>
+
+<p>This paper is an attempt to find which demographic factors correlate with level of crime using techniques from Udacity’s course ‘Exploratory data analysis with R’. I’ll try to select demographic factors that might correlate with crime rate and cover the following broad topics:</p>
+
+<ul>
+  <li>determine which of selected factors correlate with level of crime,</li>
+  <li>is there different correlation factors between personal and property crimes.</li>
+</ul>
+
+<h2 id="tocAnchor-1-1-1">Research question</h2>
+<p>My starting point was to figure out how to get as granular dataset as possible both for crime and for demographic data. As it turns out, several major cities in US provide a dataset of every reported crime, with crime description and, which is even more important, geographical locations of reported crime. I obtained these datasets for two large US cities: Los Angeles and Chicago for the year 2013.</p>
+
+<p>Source of demographic data for the United States is <a href="http://census.gov/">The United States Census Bureau</a>. The smallest geographical unit for which the bureau publishes sample data is <a href="https://en.wikipedia.org/wiki/Census_block_group">census block group</a>. Additionally, bureau provides geographical shapes of these block groups. This allows us to determine census block group of every reported crime, since our initial crime dataset contains information about geographical coordinates of the crime.</p>
+
+<p>Next step was to determine which demographic factors I should select for this paper. There is plenty of research around factors influencing crime. Most of the research describing factors influencing crime, cite these demographic parameters as the ones that have the most incluence to crime rate:</p>
+
+<ul>
+  <li>Level of urbanization</li>
+  <li>Median income</li>
+  <li>Unemployment</li>
+  <li>Education level</li>
+  <li>Concentraiton of youth</li>
+  <li>Family condition, especially in respect to divorse, family composition etc.</li>
+</ul>
+
+<p>Within the current paper I decided to focus on following variables:</p>
+
+<ul>
+  <li>Population density,</li>
+  <li>Median personal income,</li>
+  <li>Share of unemployed,</li>
+  <li>Share of those with at least a high school diploma.</li>
+</ul>
+
+<p>All this data is available for download on census block group level through census.gov.</p>
+
+<h2 id="tocAnchor-1-1-2">Constructing research dataset.</h2>
+<p>Creating clean dataset for this paper was a long and time consuming task. It contained multiple steps, involving multiple technologies, like Excel, GIS, R and SQL. I used SQL for loading and merging data, and geographical extentions for Postgres database named PostGIS for geographical calculations. I also used Excel and R for cleaning up downloaded datasets. The process is described in detail in a <a href="https://github.com/nikita-barsukov/ud-651/blob/master/supporting_texts/dataset_construction.md">separate document</a>.</p>
+
+<p>As part of cleaning up dataset, I had to assign manually if the crime was personal or property crime. Original crime datasets contained a column “crime type”, however these were more granular crime types. More over, each police departments has its own set of crime types. In my case this column contained rather obvious types, such as ‘Arson’, ‘Assault’, ‘Homicide’ or ‘Theft’, as well as more obscure or granular types, such as <em>‘OTHER MISCELLANEOUS CRIME’</em> or <em>‘THEFT, COIN MACHINE’</em>. I constructed a <a href="https://github.com/nikita-barsukov/ud-651/blob/master/clean_datasets/crime_types.csv">separate dataset</a> that matches between reported crime type form dataset, and crime types used in this research: ‘personal’, ‘property’, ‘other’.</p>
+
+<p>At the end I constructed two datasets about crime and demographic statistics in Los Angeles and Chicago:</p>
+
+<ol>
+  <li><a href="https://github.com/nikita-barsukov/ud-651/blob/master/clean_datasets/crime_reports.csv">crime_reports.csv</a>, containing crime reports for 2013 in Los Angeles and Chicago. Its columns are:
+    <ol>
+      <li>crime, crime type as found in report.</li>
+      <li>lat and lon - latitude and longitue associated with the crime report</li>
+      <li>reported_at. Date and hour when crime was reported to happen.</li>
+      <li>city. Los Angeles or Chicago</li>
+      <li>type. Personal, property or other.</li>
+    </ol>
+  </li>
+  <li><a href="https://github.com/nikita-barsukov/ud-651/blob/master/clean_datasets/crime_demo_data.csv">crime_demo_data.csv</a>, rate of of personal, property and other crime by census block group per 100,000 inhabitants, with demographic variables. In addition to census block identificator and crime rates, following demographic variables are present:
+    <ol>
+      <li>Population density, persons per sqkare kilometer;</li>
+      <li>Median personal income, US Dollars;</li>
+      <li>Share of unemployed</li>
+      <li>Share of people with at least a high school degree.</li>
+    </ol>
+  </li>
+</ol>
+
+<h1 id="tocAnchor-1-4">Analysis and exploration of data</h1>
+<p>In this section I will look at two datasets in more detail, and will try to provide a deeper overview of crime situation in both cities. Let’s start with exploring basic descriptive statistics of crime reports dataset.</p>
+
+<h2 id="tocAnchor-1-4-1">Summary of crime dataset</h2>
+<p>There are 535,912 crime reports in our dataset, 304,372 or 56.8% of our dataset are reported in Chicago and 231,540 or 43.2% were reported in Los Angeles. Crime rates (number of reproted crimes per 100,000)  are given in table below:</p>
+
+<p>Table: Crime rate in Chicago and Los Angeles, 2013</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>personal</th>
+      <th>property</th>
+      <th>total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Chicago</td>
+      <td>4,169</td>
+      <td>5,834</td>
+      <td>11,248</td>
+    </tr>
+    <tr>
+      <td>Los Angeles</td>
+      <td>2,558</td>
+      <td>3,356</td>
+      <td>6,105</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Chicago has significantly higher crime rate in 2013 than Los Angeles. Difference is especially high for personal crimes: Chicago’s rate of personal crimes is around 60% higher than Los Angeles’.</p>
+
+<p>Let’s look at the time when crimes are happening. Hourly patterns by crime type and city are plotted below.</p>
+
+<p>
+   <img src="https://s3-eu-west-1.amazonaws.com/barsukov-assets/images/la-chicago-crime/hour_breakdowns-1.png" alt="Share of crime reports by hour" />
+</p>
+
+<p>Some patterns are the same across the cities and crime types. For example, time when crime reports are reported the least is during early morning hours between 4 and 6 AM. It is surprizing to see that crime reports tend to be reported more at odd hours, as we see from jagged lines in all the facets.</p>
+
+<p>Crime in Chicago and Los Angeles are different in several ways. As we saw in table above, personal crimes in Chicago have larger share of reported crimes than in Los Angeles. Another difference is that property crimes tend to be happening at different times in these two cities: maximum share of reported property crimes in Chicago is at 9AM, while in Los Angeles maximum is at noon.</p>
+
+<p>Let’s look at weekday patterns.</p>
+
+<p>
+   <img src="https://s3-eu-west-1.amazonaws.com/barsukov-assets/images/la-chicago-crime/weekday_breakdowns-1.png" alt="Share of crime reports by weekday" />
+</p>
+
+<p>Here we see slightly different crime patterns between two cities. Most crimes in Chicago are reported at the begininng of the week, while in Los Angeles they tend to be happening in the middle of the week.</p>
+
+<h2 id="tocAnchor-1-4-2">Univariate plots.</h2>
+
+<p>Let’s look at distribution of our crime rate variables and demographic variables. Outliers were omitted in plots in this section.</p>
+
+<p>
+   <img src="https://s3-eu-west-1.amazonaws.com/barsukov-assets/images/la-chicago-crime/bivariate_plots-1.png" alt="Distribution of crime rate in census block groups" />
+</p>
+
+<p>We see several interesting patterns from these histograms. First, all have long tails, they are not normally distributed. Histogram for all crime types have somewhat thicker tail, which is ovbious since personal and property crimes are included in that figure.</p>
+
+<p>Personal and property crimes have maximums at different levels. Histogram of property crime has largest bin on leftmost part of axis, while personal crimes histogram spikes at slightly larger levels of crime rate.</p>
+
+<p>Let’s see at histograms of our demographic variables.</p>
+
+<p>
+   <img src="https://s3-eu-west-1.amazonaws.com/barsukov-assets/images/la-chicago-crime/histograms-1.png" alt="Distribution of demographic variables in census block groups" />
+</p>
+
+<p>Three of our demographc variables have similar distributions: quick spike at the beginning of x axis, and then slowly decreasing. Education level is different though: it increases steadily, with a sharp drop very close to a 100% mark.</p>
+
+<h2 id="tocAnchor-1-4-3">Bivariate plots.</h2>
+
+<p>Scatteplots of number of various types of crime and demograpfic parameters by block group are plotted below. As in previosu section, outliers were removed from this plot.</p>
+
+<p>
+   <img src="https://s3-eu-west-1.amazonaws.com/barsukov-assets/images/la-chicago-crime/crime_rate_vs_demo-1.png" alt="Crime rate and demographic variables" />
+</p>
+
+<p>We can see from scatterplots above that all our demographic variables appear to correlate with crime levels. It is also interesting to note that relation between density and median income from one side and crime levels on another side looks non-linear.</p>
+
+<h2 id="tocAnchor-1-4-4">Spatial plots of crime data</h2>
+
+<p>Let’s put crime reports to map of each city.</p>
+
+<p>
+   <img src="https://s3-eu-west-1.amazonaws.com/barsukov-assets/images/la-chicago-crime/crime_heatmaps-1.png" alt="Property and personal crimes in Chicago and Los Angeles" />
+</p>
+
+<p>Both personal and property crimes in Los Angeles are concentrated in a single area around Skid Row and Downton Los Angeles. In Chicago though different types of crime are concentrated in completely different areas. Property crimes are clustered around Chicago city center: Near North Side, Chicago Loop and River North. Personal crimes are concentrated heavily around western areas of Chicago: North and South Lawndale, Near West Side.</p>
+
+<p>Let’s plot our demographic variables on a city map, to find visual clues about connection between demography and crime level. This is map of Los Angeles with four demographic variables on it:</p>
+
+<p>
+   <img src="https://s3-eu-west-1.amazonaws.com/barsukov-assets/images/la-chicago-crime/demo_map_la-1.png" alt="Demography maps of Los Angeles" />
+</p>
+
+<p>Same variables for Chicago look like this:</p>
+
+<p>
+   <img src="https://s3-eu-west-1.amazonaws.com/barsukov-assets/images/la-chicago-crime/demo_map_ch-1.png" alt="Demography maps of Chicago" />
+</p>
+
+<p>Plots above suggest that there is indeed some correlation between demographic variables and crime levels. Correlation look especially clear for education levels and median income. In addition to that, crime in Chicago appears to be concentrated in areas with higher unemployment. while for Los Angeles same can be said about areas with high population density.</p>
+
+<p>With all these plots in mind, we now have some visual clues suggesting that there might be a correlation between crime rate and demographic variables, selected for this research. Moreover, they might hind that demographic factors correlate in the same way with personal and property crime rates.</p>
+
+<h2 id="tocAnchor-1-4-5">Correlation coefficients</h2>
+
+<p>Let’s find quantifiable parameters to visual clues described in sections above and look at correlation matrix: how crime rate in census block groups correlate with our four demographic parameters.</p>
+
+<p>Table: Correlations between crime rate and demography, entire dataset</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Total crimes</th>
+      <th>Property crimes</th>
+      <th>Personal crimes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Population density</td>
+      <td>-0.0463</td>
+      <td>-0.0340</td>
+      <td>-0.0622</td>
+    </tr>
+    <tr>
+      <td>Median Income</td>
+      <td>-0.0363</td>
+      <td>-0.0085</td>
+      <td>-0.0821</td>
+    </tr>
+    <tr>
+      <td>% of unemployed</td>
+      <td>0.1532</td>
+      <td>0.1195</td>
+      <td>0.1970</td>
+    </tr>
+    <tr>
+      <td>% of high school diploma or more</td>
+      <td>0.0182</td>
+      <td>0.0270</td>
+      <td>-0.0017</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Perhaps a bit surprizingly for us, correlation coefficients are very low. Unemployment level correlates somewhot more significant with all crime types than other demographic variables, however even here they don’t exceed 20%. Other correlation coefficients sow even weaker, with numbers around single digit percent they suggest that correlation on overall dataset is almost non-existent.</p>
+
+<p>However it makes sense to have a look at each individual city to see if things are different.</p>
+
+<p>Table: Correlations between crime rate and demography, Los Angeles</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Total crimes</th>
+      <th>Property crimes</th>
+      <th>Personal crimes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Population density</td>
+      <td>-0.0301</td>
+      <td>-0.0283</td>
+      <td>-0.0324</td>
+    </tr>
+    <tr>
+      <td>Median Income</td>
+      <td>-0.0029</td>
+      <td>-0.0018</td>
+      <td>-0.0055</td>
+    </tr>
+    <tr>
+      <td>% of unemployed</td>
+      <td>0.1753</td>
+      <td>0.1751</td>
+      <td>0.1756</td>
+    </tr>
+    <tr>
+      <td>% of high school diploma or more</td>
+      <td>0.0218</td>
+      <td>0.0240</td>
+      <td>0.0175</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Table: Correlations between crime rate and demography, Chicago</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Total crimes</th>
+      <th>Property crimes</th>
+      <th>Personal crimes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Population density</td>
+      <td>-0.1845</td>
+      <td>-0.1799</td>
+      <td>-0.1707</td>
+    </tr>
+    <tr>
+      <td>Median Income</td>
+      <td>-0.1544</td>
+      <td>-0.0337</td>
+      <td>-0.2447</td>
+    </tr>
+    <tr>
+      <td>% of unemployed</td>
+      <td>0.2738</td>
+      <td>0.1941</td>
+      <td>0.3099</td>
+    </tr>
+    <tr>
+      <td>% of high school diploma or more</td>
+      <td>-0.0589</td>
+      <td>0.0029</td>
+      <td>-0.1106</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>There are no coefficients higher than 35% on city level as well. In Chicago we see that rate of personal crimes correlate with demographic variables stronger than in Los Angeles, especially the unemployment rate. Also population density correlates somewhat closer with all crime types in Chicago. However even here such numbers do not show us a significant correlation bewteen crime and demographic variables.</p>
+
+<h1 id="tocAnchor-1-10">Final plots and summary</h1>
+
+<p>My research produced mixed results. While correlation patters in both cities differ from each other, I could not find a significant correlation between any of demographic varaible used in this research and crime rate of any type.</p>
+
+<p>
+   <img src="https://s3-eu-west-1.amazonaws.com/barsukov-assets/images/la-chicago-crime/corr_matrices_ch-1.png" alt="Correlation between crime and demografic parameters, Chicago" />
+</p>
+
+<p>Crime in Chicago shows visible level of correlation with unemployment level, density and median income. It is interesting, that personal crimes correlate with these demographical variables more than property crimes.</p>
+
+<p>
+   <img src="https://s3-eu-west-1.amazonaws.com/barsukov-assets/images/la-chicago-crime/corr_matrices_la-1.png" alt="Correlation between crime and demografic parameters, Los Angeles" />
+</p>
+
+<p>As it was mentioned before, correlation patterns in Los Angeles are vastly different from Chicago. Overall correlation coefficients between crime rate and demographic variables are very close to zero. Of all four demographics only unemployment correlates with crimes of both types at more or less visible level (above 15%). Three other demographic variables have correlation coefficients in range 0–5%.</p>
+
+<p>
+   <img src="https://s3-eu-west-1.amazonaws.com/barsukov-assets/images/la-chicago-crime/corr_matrices_total-1.png" alt="Correlation between crime and demografic parameters, both cities" />
+</p>
+
+<p>Correlation coefficients on all dataset don’t give us drastically different picture. Correlation between unemployment and crime rate stands out from other demographic parameters, however it is still way below generally accepted level of 70+%. We also see that personal crimes correlate more with demographic variables. With such low correlation coefficients however this is meaningless, we cannot draw any conclusions based on that.</p>
+
+<p>Another findings that we can see from research above:</p>
+
+<ul>
+  <li>Personal crimes tend to correlate with demographic parameters stronger than property crimes</li>
+  <li>Chicago and Los Angeles have different patterns in correlations</li>
+  <li>The only demographic parameter that correlates with borh personal and property crime rate in Los Angeles is unemployment level</li>
+</ul>
+
+<h1 id="tocAnchor-1-11">Reflection</h1>
+<p>My research failed to show decisively a correlation between level of reported crime in Chicago and Los Angeles, and either of selected four demographic characteristics.</p>
+
+<p>We clearly see that in both cities crimes are heavily concentrated in certain city areas, which also tend to have distinct demographic qualities. Despite that, correlation coefficient between crime rate per 100,000 inhabitants and demographic characteristics on census block level was insignificant.</p>
+
+<p>So what could go wrong in my analysis? What could be the reasons why I failed to uncover strong correlations between median income, population density, unemployment and education level, and crime rate? After all, these four parameters are associated with crime rate extremely often in relevant literature.</p>
+
+<p>First thing that could be wrong was selected level of granularity of my geographical data. Census blocks, which are the lowest geographical level for which census data is provided publicly, might be too small for the broad analysis attempted in this paper. Plotting same data on larger geographical units might give us a different picture.</p>
+
+<p>A lot of effort was spent on normalizing and merging raw crime datasets. One of the tasks included normalizing crime types, making their labels uniform across all two cities. I could make mistakes in attributing crime type reported in original dataset to crime type used in this paper.</p>
+
+<p>Besides above problems, there are also other broader issues with taken approach. For example, it does not contain any temporal aspect. Dataset covers only year 2013. This would be crucial had I attempted to perform cause-and-effect analysis.</p>
+
+<p>However despite of my failure to find some support to my research question, plenty of positive things can be found in this grading paper. For example, I showed that there is a lot of potential value in combining publicly available datasets from different sources. Plenty of demographical data is available for various geographical blocks on several levels from American County Survey and census.</p>
+
+<p>Further research on using datasets used in this paper could include:</p>
+
+<ul>
+  <li>Cluster analysis of crime reports. We could explore various clustering approaches to find out areas of crime concentration.</li>
+  <li>Include more demographic variables, ex. family size, number of children in a family etc.</li>
+  <li>We could also use locations of other places, ex. compare distributions of McDonalds’s, Starbucks, 7-Eleven restaurants, and locations of crime reports.</li>
+</ul>
+
+
+            
+<div id="mc_embed_signup">
+        <h4 id='subscribe-header'>Subscribe to blog updates</h4>
+
+<form action="//barsukov.us10.list-manage.com/subscribe/post?u=3a4ce1b8d74888faf6a7e25e8&amp;id=750580a2c7" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+        <p>If you leave your address, you will get a postcard from me.</p>
+<div class="indicates-required"><span class="asterisk">*</span> indicates required</div>
+<div class="mc-field-group">
+    <label for="mce-EMAIL">Email  <span class="asterisk">*</span>
+</label>
+    <input type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+</div>
+<div class="mc-field-group">
+    <label for="mce-LNAME">Name </label>
+    <input type="text" value="" name="LNAME" class="" id="mce-LNAME">
+</div>
+<div class="mc-field-group">
+    <label for="mce-MMERGE1">Address </label>
+    <textarea class="form-control" rows='3' value="" name="MMERGE1" class="" id="mce-MMERGE1"></textarea>
+</div>
+    <div id="mce-responses" class="clear">
+        <div class="response" id="mce-error-response" style="display:none"></div>
+        <div class="response" id="mce-success-response" style="display:none"></div>
+    </div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+    <div style="position: absolute; left: -5000px;"><input type="text" name="b_3a4ce1b8d74888faf6a7e25e8_750580a2c7" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+<!--End mc_embed_signup-->
+          </div>   
+        </div>
+      </div>
+      <div id="tooltip"></div>
+        <script>
+    (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+    ga('create', 'UA-43677904-2', 'barsukov.net');
+    ga('send', 'pageview');
+  </script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+      <script type="text/javascript">
+        $("#subscribe-header").click(function() {
+            $( "#mc-embedded-subscribe-form" ).slideToggle('fast', function() {
+              var n = $(document).height();
+              $('html, body').animate({ scrollTop: n }, 50);
+            });
+        });
+      </script>
+    </body>
+</html>

@@ -1,0 +1,28 @@
+body{
+counter-reset:figure tbl;
+}
+
+.caption::before{
+counter-increment: figure;
+content: "Figure " counter(figure) ": ";
+}
+
+.caption, caption{
+    margin-top: 0.1em;
+    padding-top: 0.1em;
+    font-weight: bold;
+}
+
+table > caption {
+  font-weight: bold;
+  color: black;
+}
+
+table caption::before{
+counter-increment: tbl;
+content: "Table " counter(tbl) ": ";  
+}
+
+pre{
+  display:none;
+}

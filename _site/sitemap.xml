@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>/visualisation/2014/07/30/taxes/</loc>
+    <loc>/visualisation/2015/11/23/chicago-la-crime/</loc>
+    <lastmod>2015-11-23T00:00:00+01:00</lastmod>
+  </url>
+  <url>
+    <loc>/2014/07/30/taxes/</loc>
     <lastmod>2014-07-30T00:00:00+02:00</lastmod>
   </url>
   <url>
@@ -17,11 +21,97 @@
     <lastmod>2014-07-03T00:00:00+02:00</lastmod>
   </url>
   <url>
-    <loc>/visualisation/2014/07/01/foreigners/</loc>
+    <loc>/2014/07/01/foreigners/</loc>
     <lastmod>2014-07-01T00:00:00+02:00</lastmod>
   </url>
   <url>
     <loc>/</loc>
-    <lastmod>2015-02-26T21:37:28+01:00</lastmod>
   </url>
+  <url>
+    <loc>/tag/denmark/</loc>
+  </url>
+  <url>
+    <loc>/tag/foreigner/</loc>
+  </url>
+  <url>
+    <loc>/tag/timeseries/</loc>
+  </url>
+  <url>
+    <loc>/tag/map/</loc>
+  </url>
+  <url>
+    <loc>/tag/disposable-income/</loc>
+  </url>
+  <url>
+    <loc>/tag/households/</loc>
+  </url>
+  <url>
+    <loc>/tag/inequality/</loc>
+  </url>
+  <url>
+    <loc>/tag/income/</loc>
+  </url>
+  <url>
+    <loc>/tag/endomondo/</loc>
+  </url>
+  <url>
+    <loc>/tag/running/</loc>
+  </url>
+  <url>
+    <loc>/tag/copenhagen/</loc>
+  </url>
+  <url>
+    <loc>/tag/fitness/</loc>
+  </url>
+  <url>
+    <loc>/tag/r/</loc>
+  </url>
+  <url>
+    <loc>/tag/ruby/</loc>
+  </url>
+  <url>
+    <loc>/tag/postgres/</loc>
+  </url>
+  <url>
+    <loc>/tag/stamen/</loc>
+  </url>
+  <url>
+    <loc>/tag/ggplot/</loc>
+  </url>
+  <url>
+    <loc>/tag/visualisation/</loc>
+  </url>
+  <url>
+    <loc>/tag/taxes/</loc>
+  </url>
+  <url>
+    <loc>/tag/scatterplot/</loc>
+  </url>
+  <url>
+    <loc>/tag/usa/</loc>
+  </url>
+  <url>
+    <loc>/tag/crime/</loc>
+  </url>
+  <url>
+    <loc>/tag/los-angeles/</loc>
+  </url>
+    <url>
+      <loc>/2014/07/01/foreigners/</loc>
+    </url>
+    <url>
+      <loc>/visualisation/2014/07/03/income/</loc>
+    </url>
+    <url>
+      <loc>/visualisation/2014/07/25/endomondo/</loc>
+    </url>
+    <url>
+      <loc>/programming/2014/07/26/endomondo-code/</loc>
+    </url>
+    <url>
+      <loc>/2014/07/30/taxes/</loc>
+    </url>
+    <url>
+      <loc>/visualisation/2015/11/23/chicago-la-crime/</loc>
+    </url>
 </urlset>
